@@ -1,11 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Rock Paper Scissors</h1>
+    <p>Make your choice by clicking on one of the buttons below:</p>
+    <div class="button-container">
+      <button id="rock">
+        <span class="button-label">Rock</span>
+        <span class="button-emoji">✊</span>
+      </button>
+      <button id="paper">
+        <span class="button-label">Paper</span>
+        <span class="button-emoji">🖐️</span>
+      </button>
+      <button id="scissors">
+        <span class="button-label">Scissors</span>
+        <span class="button-emoji">✌️</span>
+      </button>
+    </div>
+
+    <div id="result"></div>
+    <div id="score"></div>
+    <div id="game-status"></div>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>

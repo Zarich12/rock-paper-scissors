@@ -1,74 +1,82 @@
-const options = ['rock', 'paper', 'scissors'];
+const options = ["rock", "paper", "scissors"];
+
+let scorePlayer = 0;
+let scoreComputer = 0;
 
 function getComputerChoice() {
-    const choice = Math.floor(Math.random() * options.length);
-    return options[choice];
+  const choice = Math.floor(Math.random() * options.length);
+  return options[choice];
 }
 
-
-function checkWinner (playerSelection, computerSelection) {
-    if (playerSelection == computerSelection) {
-        return "Tie";
-    } else if (
-        (playerSelection == "rock" && computerSelection == "scissors") || 
-    (playerSelection == "scissors" && computerSelection == "paper") || 
+function checkWinner(playerSelection, computerSelection) {
+  if (playerSelection == computerSelection) {
+    return "Tie";
+  } else if (
+    (playerSelection == "rock" && computerSelection == "scissors") ||
+    (playerSelection == "scissors" && computerSelection == "paper") ||
     (playerSelection == "paper" && computerSelection == "rock")
-    ) {
-        return "Player"
-    } else {
-        return "Computer"
-    }
+  ) {
+    return "Player";
+  } else {
+    return "Computer";
+  }
 }
 
 function playRound(playerSelection, computerSelection) {
-    const result = checkWinner(playerSelection, computerSelection)
-    if (result == "Tie") {
-        return "It is a Tie";
-    } else if (result == "Player") {
-        return `You win! ${playerSelection} beats ${computerSelection}`
-    } else {
-        return `You lose! ${computerSelection} beats ${playerSelection}`
-    }
-
+  const result = checkWinner(playerSelection, computerSelection);
+  if (result == "Tie") {
+    return "It is a Tie";
+  } else if (result == "Player") {
+    scorePlayer++;
+    return `You win! ${playerSelection} beats ${computerSelection}`;
+  } else {
+    scoreComputer++;
+    return `You lose! ${computerSelection} beats ${playerSelection}`;
+  }
 }
 
-function getPlayerChoice(){
-    let validatedInput = false;
-    while(validatedInput == false){
-        const choice = prompt("Rock Paper Scissors");
-        if(choice == null){
-            continue;
-        }
-        const choiceLower = choice.toLowerCase();
-        if(options.includes(choiceLower)){
-            validatedInput = true;
-            return choiceLower;
-        }
-    }
+function updateScore() {
+  document.getElementById(
+    "score"
+  ).innerText = `Player: ${scorePlayer} | Computer: ${scoreComputer}`;
 }
 
-function game() {
-    let scorePlayer = 0;
-    let scoreComputer = 0;
-    for (let i = 0; i < 5; i++) {
-        const playerSelection = getPlayerChoice();
-        const computerSelection = getComputerChoice();
-        console.log(playRound(playerSelection, computerSelection));
-        console.log("--------------------------------------")
-        if(checkWinner(playerSelection, computerSelection == "Player")){
-            scorePlayer++
-        } else if (checkWinner(playerSelection, computerSelection == "Computer")){
-            scoreComputer++
-        }
-    }
-    console.log("Game Over")
-    if (scorePlayer > scoreComputer){
-        console.log("Player was the winner");
-    }else if (scorePlayer < scoreComputer){
-        console.log("Computer was the winner");
-    } else {
-        console.log("We have a tie");
-    }
+function updateResult(message) {
+  document.getElementById("result").innerText = message;
 }
 
-game()
+function handleButtonClick(choice) {
+  const computerSelection = getComputerChoice();
+  const resultMessage = playRound(choice, computerSelection);
+
+  updateResult(resultMessage);
+  updateScore();
+
+  if (scorePlayer == 5 || scoreComputer == 5) {
+    endGame();
+  }
+}
+
+function endGame() {
+  let gameElementStatus = document.getElementById("game-status");
+  if (scorePlayer > scoreComputer) {
+    gameElementStatus.innerText = "You win the game ⚡";
+  } else {
+    gameElementStatus.innerText = "You lose the game 😭";
+  }
+  scorePlayer = 0;
+  scoreComputer = 0;
+  updateScore();
+}
+
+document
+  .getElementById("rock")
+  .addEventListener("click", () => handleButtonClick("rock"));
+document
+  .getElementById("paper")
+  .addEventListener("click", () => handleButtonClick("paper"));
+document
+  .getElementById("scissors")
+  .addEventListener("click", () => handleButtonClick("scissors"));
+```
+```;
